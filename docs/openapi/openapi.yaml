@@ -1,0 +1,70 @@
+openapi: 3.1.0
+info:
+  title: "ServiceTrack"
+  description: ""
+  version: 1.0.0
+tags:
+  - name: technicians
+    description: Requests related to Technicians
+
+paths:
+  /technicians:
+    post:
+      tags:
+        - technicians
+      summary: Add a new technician
+      operationId: addNewTechnician
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddTechnicianRequest'
+      responses:
+        '201':
+          description: Successfully save technician!
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AddTechnicianResponse'
+        '400':
+          description: Bad request
+        '409':
+          description: Failed to save technician!
+components:
+  schemas:
+    AddTechnicianRequest:
+      properties:
+        id:
+          type: string
+          example: "8096c0dd-64f0-49cf-9282-8dfbb788ff0a"
+        firstName:
+          type: string
+          example: "Adam"
+        lastName:
+          type: string
+          example: "Nowak"
+        email:
+          type: string
+          example: "xyz@gmail.com"
+        phoneNumber:
+          type: string
+          example: "111222333"
+
+    AddTechnicianResponse:
+      properties:
+        id:
+          type: string
+          example: "8096c0dd-64f0-49cf-9282-8dfbb788ff0a"
+        firstName:
+          type: string
+          example: "Adam"
+        lastName:
+          type: string
+          example: "Nowak"
+        email:
+          type: string
+          example: "xyz@gmail.com"
+        phoneNumber:
+          type: string
+          example: "111222333"
+

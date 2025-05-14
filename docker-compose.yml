@@ -1,0 +1,107 @@
+version: '3.8'
+
+services:
+  client-service:
+    build:
+      context: ./client-service
+      dockerfile: Dockerfile
+    container_name: client-service
+    ports:
+      - "8081:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgresql:5432/servicetrack
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: admin
+      SPRING_PROFILES_ACTIVE: docker
+    depends_on:
+      - postgres
+    networks:
+      - servicetrack-network
+
+  technician-service:
+    build:
+      context: ./technician-service
+      dockerfile: Dockerfile
+    container_name: technician-service
+    ports:
+      - "8082:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgresql:5432/servicetrack
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: admin
+      SPRING_PROFILES_ACTIVE: docker
+    depends_on:
+      - postgres
+    networks:
+      - servicetrack-network
+
+  serviceorder-service:
+    build:
+      context: ./serviceorder-service
+      dockerfile: Dockerfile
+    container_name: serviceorder-service
+    ports:
+      - "8083:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgresql:5432/servicetrack
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: admin
+      SPRING_PROFILES_ACTIVE: docker
+    depends_on:
+      - postgres
+    networks:
+      - servicetrack-network
+
+  user-service:
+    build:
+      context: ./user-service
+      dockerfile: Dockerfile
+    container_name: user-service
+    ports:
+      - "8084:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgresql:5432/servicetrack
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: admin
+      SPRING_PROFILES_ACTIVE: docker
+      JWT_SECRET_KEY: 96e8d2209e3ce5af1dd10a4b6543d57edb4aa9c0c9d33452d7ef8b21c6b5b042
+    depends_on:
+      - postgres
+    networks:
+      - servicetrack-network
+
+  postgres:
+    image: postgres:16
+    container_name: servicetrack-db
+    environment:
+      POSTGRES_DB: servicetrack
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: admin
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    networks:
+      - servicetrack-network
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: frontend
+    ports:
+      - "3000:3000"
+    depends_on:
+      - client-service
+      - serviceorder-service
+      - technician-service
+    networks:
+      - servicetrack-network
+
+volumes:
+  postgres-data:
+
+networks:
+  servicetrack-network:
+
+

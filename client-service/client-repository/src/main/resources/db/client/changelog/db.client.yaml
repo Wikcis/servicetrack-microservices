@@ -1,0 +1,3 @@
+databaseChangeLog:
+  - include:
+      file: db/client/migration/00_init_client_schema.yaml

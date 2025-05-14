@@ -1,0 +1,40 @@
+@media (max-width: 768px) {
+    .sidebar {
+        width: 20%;
+    }
+
+    .mainContainer {
+        padding: 10px;
+    }
+
+    .tableContainer {
+        padding: 5px;
+    }
+
+    th, td {
+        padding: 8px 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    .sidebar {
+        width: 25%;
+    }
+
+    .mainContainer {
+        padding: 5px;
+    }
+
+    .tableContainer {
+        padding: 0;
+    }
+
+    th, td {
+        font-size: 12px;
+        padding: 6px 8px;
+    }
+
+    .searchbarInput {
+        width: 90%;
+    }
+}

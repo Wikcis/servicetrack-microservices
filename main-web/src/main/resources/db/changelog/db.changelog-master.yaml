@@ -1,0 +1,14 @@
+databaseChangeLog:
+  - includeAll:
+      path: db/client/changelog
+
+  - includeAll:
+      path: db/technician/changelog
+
+  - includeAll:
+      path: db/serviceorder/changelog
+
+  - includeAll:
+      path: db/user/changelog
+
+

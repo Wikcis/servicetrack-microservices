@@ -1,0 +1,104 @@
+.tableContainer {
+    width: 95%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    overflow-x: hidden;
+    overflow-y: auto;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    border-radius: 16px;
+}
+
+table {
+    width: 100%;
+    table-layout: fixed;
+    border-collapse: collapse;
+    border-spacing: 0;
+    text-align: left;
+}
+
+thead {
+    position: sticky;
+    top: 0;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+th, td {
+    padding: 10px 15px;
+    text-align: center;
+    overflow: hidden;
+    background-color: var(--table-header-background);
+    color: var(--table);
+    font-family: var(--main-font), sans-serif;
+}
+
+th {
+    font-weight: bold;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+tbody td{
+    background-color: var(--background);
+}
+
+tbody tr {
+    border-bottom: 1px solid rgba(211, 211, 211, 0.5)
+}
+
+.tableContainer::-webkit-scrollbar {
+    width: 8px;
+    border-radius: 8px;
+}
+
+.tableContainer::-webkit-scrollbar-thumb {
+    background-color: var(--table-scroll);
+    border-radius: 8px;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.tableContainer::-webkit-scrollbar-thumb:hover {
+    background-color: var(--secondary);
+}
+
+.tableContainer::-webkit-scrollbar:horizontal {
+    display: none;
+}
+
+.loading, .error, .no-data {
+    text-align: center;
+    font-size: 1.2rem;
+    color: var(--primary);
+    font-family: var(--main-font), serif;
+    margin-top: 20px;
+}
+
+@media screen and (max-width: 768px) {
+    th, td {
+        font-size: 0.8rem;
+        padding: 6px 12px;
+    }
+
+    .loading, .error, .no-data {
+        font-size: 1rem;
+        margin-top: 10px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    th, td {
+        font-size: 0.7rem;
+        padding: 5px 2px;
+    }
+
+    .tableContainer {
+        width: 100%;
+    }
+
+    .loading, .error, .no-data {
+        font-size: 0.9rem;
+    }
+}
+
+
+

@@ -1,0 +1,12 @@
+databaseChangeLog:
+  - changeSet:
+      id: 02_admin_update_role
+      author: Wikcis
+      changes:
+        - update:
+            tableName: user_user
+            where: id='76431793-67e9-4402-a929-f77adead02a0'
+            columns:
+              - column:
+                  name: role
+                  value: ADMIN

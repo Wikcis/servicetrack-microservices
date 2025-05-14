@@ -1,0 +1,3 @@
+databaseChangeLog:
+  - include:
+      file: db/serviceorder/migration/00_init_serviceorder_schema.yaml

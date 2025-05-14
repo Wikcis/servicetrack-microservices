@@ -1,0 +1,49 @@
+databaseChangeLog:
+  - changeSet:
+      id: 00_init_serviceorder_schema
+      author: Wikcis
+      changes:
+        - createTable:
+            tableName: serviceorder_serviceorder
+            columns:
+              - column:
+                  name: id
+                  type: uuid
+                  autoIncrement: false
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: technician_id
+                  type: uuid
+                  constraints:
+                    nullable: false
+              - column:
+                  name: client_id
+                  type: uuid
+                  constraints:
+                    nullable: false
+              - column:
+                  name: service_type
+                  type: text
+              - column:
+                  name: service_format
+                  type: text
+              - column:
+                  name: service_description
+                  type: text
+              - column:
+                  name: datetime_of_service
+                  type: Timestamp
+              - column:
+                  name: status
+                  type: text
+              - column:
+                  name: service_duration
+                  type: Time
+              - column:
+                  name: comment
+                  type: text
+              - column:
+                  name: creation_datetime
+                  type: Timestamp

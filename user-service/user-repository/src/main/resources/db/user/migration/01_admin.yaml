@@ -1,0 +1,32 @@
+databaseChangeLog:
+  - changeSet:
+      id: 01_admin
+      author: Wikcis
+      changes:
+        - insert:
+            tableName: user_user
+            columns:
+              - column:
+                  name: id
+                  value: 76431793-67e9-4402-a929-f77adead02a0
+              - column:
+                  name: first_name
+                  value: Admin
+              - column:
+                  name: last_name
+                  value: Admin
+              - column:
+                  name: password
+                  value: $2a$10$12WG8tBDCwFn7HnD4rZWWugchJ1GerAd6KkW4CDLDuU7vao6rFUvu
+              - column:
+                  name: email
+                  value: admin@admin.com
+              - column:
+                  name: phone_number
+                  value: 12345
+              - column:
+                  name: role
+                  value: USER
+              - column:
+                  name: created_at
+                  value: 2024-11-12T14:30:00Z

@@ -1,0 +1,11 @@
+.addButton {
+    width: 25%;
+    height: 70%;
+}
+
+@media screen and (max-width: 768px) {
+    .addButton {
+        width: 30%;
+        height: 80%;
+    }
+}

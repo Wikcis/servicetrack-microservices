@@ -1,0 +1,13 @@
+export {ReactComponent as Logo} from './svg/logo.svg';
+export {ReactComponent as BinIcon} from './svg/bin-icon.svg';
+export {ReactComponent as EditIcon} from './svg/edit-icon.svg';
+export {ReactComponent as PlusIcon} from './svg/plus-icon.svg';
+export {ReactComponent as ProfileIcon} from './svg/profile-icon.svg';
+export {ReactComponent as ProfilePageIcon} from './svg/profile-page-icon.svg';
+export {ReactComponent as XIcon} from './svg/x-icon.svg';
+export {ReactComponent as ClientsIcon} from './svg/clients-icon.svg';
+export {ReactComponent as PrimaryClientsIcon} from './svg/clients-icon-primary.svg';
+export {ReactComponent as TechnicianIcon} from './svg/technician-icon.svg';
+export {ReactComponent as PrimaryTechnicianIcon} from './svg/technician-icon-primary.svg';
+export {ReactComponent as ServiceOrdersIcon} from './svg/service-orders-icon.svg';
+export {ReactComponent as PrimaryServiceOrdersIcon} from './svg/service-orders-icon-primary.svg';

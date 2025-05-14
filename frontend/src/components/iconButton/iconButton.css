@@ -1,0 +1,12 @@
+.iconButton {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+@media screen and (max-width: 768px) {
+    .iconButton svg {
+        max-width: 10px;
+        max-height: 10px;
+    }
+}

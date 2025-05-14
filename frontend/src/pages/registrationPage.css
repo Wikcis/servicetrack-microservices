@@ -1,0 +1,126 @@
+.credentialsContainer {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--background);
+    width: 40%;
+    height: auto;
+    max-width: 1000px;
+    min-width: 100px;
+    padding: 2%;
+    border-radius: 16px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+    gap: 20px;
+}
+
+.credentialsHeader {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.credentialsTitle {
+    font-family: var(--main-font), sans-serif;
+    color: var(--primary);
+    font-weight: bolder;
+    font-size: 1.7rem;
+}
+
+.credentialsText {
+    font-family: var(--main-font), sans-serif;
+    color: black;
+    font-weight: bolder;
+    font-size: 1.8rem;
+    display: flex;
+    text-align: center;
+}
+
+.credentialsDescription {
+    font-family: var(--main-font), sans-serif;
+    color: black;
+    font-size: 0.9rem;
+}
+
+.but {
+    display: flex;
+    justify-content: center;
+    margin-top: 1%;
+}
+
+.gridItem {
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.labelField {
+    font-family: var(--main-font), sans-serif;
+    color: var(--text);
+}
+
+.textField {
+    flex: 1;
+    width: 60%;
+    position: relative;
+}
+
+.logInButton {
+    width: 50%;
+    max-height: 70px;
+    min-height: 30px;
+    height: 60px;
+}
+@media screen and (max-width: 768px) {
+    .credentialsContainer {
+        width: 90%;
+        height: 80%;
+        max-height: 90%;
+        overflow-y: auto;
+        padding: 4%;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+    }
+
+    .credentialsTitle {
+        font-size: 1.4rem;
+        text-align: center;
+    }
+
+    .credentialsText {
+        font-size: 1.3rem;
+    }
+
+    .gridItem {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .labelField {
+        width: 100%;
+        text-align: left;
+        margin-bottom: 2%;
+        font-size: 1rem;
+    }
+
+    .textField {
+        width: 100%;
+        max-width: none;
+        margin-bottom: 3%;
+    }
+
+    .logInButton {
+        width: 100%;
+        height: 50px;
+    }
+}
+

@@ -1,0 +1,33 @@
+databaseChangeLog:
+  - changeSet:
+      id: 00_init_technician_schema
+      author: Wikcis
+      changes:
+        - createTable:
+            tableName: technician_technician
+            columns:
+              - column:
+                  name: id
+                  type: uuid
+                  autoIncrement: false
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: user_id
+                  type: uuid
+                  autoIncrement: false
+                  constraints:
+                    nullable: true
+              - column:
+                  name: first_name
+                  type: text
+              - column:
+                  name: last_name
+                  type: text
+              - column:
+                  name: email
+                  type: text
+              - column:
+                  name: phone_number
+                  type: text

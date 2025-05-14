@@ -1,0 +1,21 @@
+.dropDownListContainer {
+    width: 15%;
+}
+
+.popUpDropDownListContainer {
+    width: 60%;
+    max-width: 250px;
+    min-width: 100px;
+}
+
+@media screen and (max-width: 768px) {
+    .dropDownListContainer {
+        width: 20%;
+    }
+
+    .popUpDropDownListContainer {
+        width: 80%;
+        max-width: none;
+        min-width: 0;
+    }
+}

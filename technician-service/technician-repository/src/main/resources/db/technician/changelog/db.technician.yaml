@@ -1,0 +1,3 @@
+databaseChangeLog:
+  - include:
+      file: db/technician/migration/00_init_technician_schema.yaml

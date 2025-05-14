@@ -1,0 +1,36 @@
+.userBarContainer {
+    height: 25%;
+    width: 95%;
+    font-family: var(--main-font), sans-serif;
+    position: relative;
+}
+
+.userInfoContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+}
+
+.userNameContainer {
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.phoneNumber {
+    font-weight: bold;
+}
+
+.userWithIconContainer {
+    display: flex;
+    flex-direction: row;
+    right: 0;
+    position: absolute;
+}
+
+.profileIcon {
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+    min-width: 10px;
+    min-height: 10px;
+}
