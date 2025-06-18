@@ -93,6 +93,7 @@ services:
       - client-service
       - serviceorder-service
       - technician-service
+      - user-service
     networks:
       - servicetrack-network
 

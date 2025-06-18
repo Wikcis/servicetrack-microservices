@@ -4,6 +4,8 @@ const TECHNICIAN_API_PORT = "8082"
 const SERVICEORDER_API_PORT = "8083"
 const USER_API_PORT = "8084"
 
+console.log("🔥 USEEEEEEEErL:", USER_API_PORT);
+
 export const REST_API_URLS = {
     BASE_URL,
     ONLY_LOGIN_URL: `/login`,
