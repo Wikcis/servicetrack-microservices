@@ -17,8 +17,10 @@ import {PlusIcon} from "../../assets";
 import {AppContext} from "../../context";
 
 export const ClientsListPage = () => {
-    const {searchClients, filteredClients, setFilteredClients, loading, user,
-        setEditionTrigger, editionTrigger, selectedRow, fetchData} = useContext(AppContext);
+    const {
+        searchClients, filteredClients, setFilteredClients, loading, user,
+        setEditionTrigger, editionTrigger, selectedRow, fetchData
+    } = useContext(AppContext);
 
     const [triggerButton, setTriggerButton] = useState(false);
     const columns = TableColumns(Titles.clientsPageTitle, user);
@@ -39,10 +41,9 @@ export const ClientsListPage = () => {
                     <DropDownList columns={columns.filter(col => col.Header !== "")} onSelectColumn={handleSelection}
                                   title={Titles.sortByTitle} className={"dropDownListContainer"}/>
                     <Searchbar onSearch={(input) => searchClients(input)}/>
-                    {user?.role !== "USER" ?
-                        <CustomButton className="addButton" icon={<PlusIcon/>} setTriggerButton={setTriggerButton}>
-                            Add client
-                        </CustomButton> : null}
+                    <CustomButton className="addButton" icon={<PlusIcon/>} setTriggerButton={setTriggerButton}>
+                        Add client
+                    </CustomButton>
                 </div>
                 {!loading ? (<Table data={filteredClients || []} type={Titles.clientsPageTitle}/>) : null}
             </div>
