@@ -1,98 +1,120 @@
 services:
-  - type: web
-    name: frontend
-    env: docker
-    rootDir: frontend
-    plan: starter
-
-  - type: web
-    name: client-service
-    env: docker
-    rootDir: client-service
-    plan: starter
-    envVars:
-      - key: SPRING_PROFILES_ACTIVE
-        value: prod
-      - key: SPRING_DATASOURCE_URL
-        fromDatabase:
-          name: servicetrack-db
-          property: connectionString
-      - key: SPRING_DATASOURCE_USERNAME
-        fromDatabase:
-          name: servicetrack-db
-          property: user
-      - key: SPRING_DATASOURCE_PASSWORD
-        fromDatabase:
-          name: servicetrack-db
-          property: password
-
-  - type: web
-    name: technician-service
-    env: docker
-    rootDir: technician-service
-    plan: starter
-    envVars:
-      - key: SPRING_PROFILES_ACTIVE
-        value: prod
-      - key: SPRING_DATASOURCE_URL
-        fromDatabase:
-          name: servicetrack-db
-          property: connectionString
-      - key: SPRING_DATASOURCE_USERNAME
-        fromDatabase:
-          name: servicetrack-db
-          property: user
-      - key: SPRING_DATASOURCE_PASSWORD
-        fromDatabase:
-          name: servicetrack-db
-          property: password
-
-  - type: web
-    name: serviceorder-service
-    env: docker
-    rootDir: serviceorder-service
-    plan: starter
-    envVars:
-      - key: SPRING_PROFILES_ACTIVE
-        value: prod
-      - key: SPRING_DATASOURCE_URL
-        fromDatabase:
-          name: servicetrack-db
-          property: connectionString
-      - key: SPRING_DATASOURCE_USERNAME
-        fromDatabase:
-          name: servicetrack-db
-          property: user
-      - key: SPRING_DATASOURCE_PASSWORD
-        fromDatabase:
-          name: servicetrack-db
-          property: password
-
+  # 1. User Service
   - type: web
     name: user-service
     env: docker
-    rootDir: user-service
-    plan: starter
+    dockerfilePath: ./user-service/Dockerfile
+    plan: free
     envVars:
       - key: SPRING_PROFILES_ACTIVE
-        value: prod
-      - key: SPRING_DATASOURCE_URL
+        value: docker
+      - key: FRONTEND_URL
+        sync: false # Ustawisz to w panelu po zdeployowaniu Netlify!
+      - key: JWT_SECRET_KEY
+        sync: false # Klucz wpiszesz ręcznie w panelu ze względów bezpieczeństwa
+      - key: DB_HOST
         fromDatabase:
           name: servicetrack-db
-          property: connectionString
-      - key: SPRING_DATASOURCE_USERNAME
+          property: host
+      - key: DB_NAME
+        fromDatabase:
+          name: servicetrack-db
+          property: database
+      - key: DB_USER
         fromDatabase:
           name: servicetrack-db
           property: user
-      - key: SPRING_DATASOURCE_PASSWORD
+      - key: DB_PASS
         fromDatabase:
           name: servicetrack-db
           property: password
-      - key: JWT_SECRET_KEY
+
+  # 2. Client Service
+  - type: web
+    name: client-service
+    env: docker
+    dockerfilePath: ./client-service/Dockerfile
+    plan: free
+    envVars:
+      - key: SPRING_PROFILES_ACTIVE
+        value: docker
+      - key: FRONTEND_URL
         sync: false
+      - key: DB_HOST
+        fromDatabase:
+          name: servicetrack-db
+          property: host
+      - key: DB_NAME
+        fromDatabase:
+          name: servicetrack-db
+          property: database
+      - key: DB_USER
+        fromDatabase:
+          name: servicetrack-db
+          property: user
+      - key: DB_PASS
+        fromDatabase:
+          name: servicetrack-db
+          property: password
+
+  # 3. Technician Service
+  - type: web
+    name: technician-service
+    env: docker
+    dockerfilePath: ./technician-service/Dockerfile
+    plan: free
+    envVars:
+      - key: SPRING_PROFILES_ACTIVE
+        value: docker
+      - key: FRONTEND_URL
+        sync: false
+      - key: DB_HOST
+        fromDatabase:
+          name: servicetrack-db
+          property: host
+      - key: DB_NAME
+        fromDatabase:
+          name: servicetrack-db
+          property: database
+      - key: DB_USER
+        fromDatabase:
+          name: servicetrack-db
+          property: user
+      - key: DB_PASS
+        fromDatabase:
+          name: servicetrack-db
+          property: password
+
+  # 4. Service Order Service
+  - type: web
+    name: serviceorder-service
+    env: docker
+    dockerfilePath: ./serviceorder-service/Dockerfile
+    plan: free
+    envVars:
+      - key: SPRING_PROFILES_ACTIVE
+        value: docker
+      - key: FRONTEND_URL
+        sync: false
+      - key: DB_HOST
+        fromDatabase:
+          name: servicetrack-db
+          property: host
+      - key: DB_NAME
+        fromDatabase:
+          name: servicetrack-db
+          property: database
+      - key: DB_USER
+        fromDatabase:
+          name: servicetrack-db
+          property: user
+      - key: DB_PASS
+        fromDatabase:
+          name: servicetrack-db
+          property: password
 
 databases:
   - name: servicetrack-db
-    plan: starter
+    plan: free
     databaseName: servicetrack
     user: postgres
