@@ -1,43 +1,37 @@
 import {Logo} from "../../assets";
 import {SidebarData} from "./SidebarData";
-import {useNavigate} from "react-router-dom";
+import {useNavigate, useLocation} from "react-router-dom";
 import {useContext} from "react";
 import {AppContext} from "../../context";
 
 export const Sidebar = ({withoutData}) => {
-
     const {user} = useContext(AppContext);
-
     const navigate = useNavigate();
-    const currentPath = window.location.pathname;
+    const location = useLocation();
 
     return (
-        <div className="sidebar">
+        <aside className="sidebar">
             <div className="logoContainer">
                 <Logo/>
             </div>
             <ul className="sidebarList">
-                {!withoutData
-                    ? SidebarData(user?.role).map((item, index) => {
-                        const isActive = currentPath === item.link;
+                {!withoutData && SidebarData(user?.role).map((item, index) => {
+                    const isActive = location.pathname === item.link;
 
-                        return (
-                            <li
-                                className={`row ${isActive ? "active" : ""}`}
-                                key={index}
-                                onClick={() => navigate(item.link)}
-                            >
-                                <div id="icon">
-                                    {isActive ? item.primaryIcon : item.icon}
-                                </div>
-                                <div id="title">{item.title}</div>
-                                {isActive && <div className="ellipse"/>}
-                            </li>
-                        );
-                    })
-                    : null}
+                    return (
+                        <li
+                            className={`sidebarItem ${isActive ? "active" : ""}`}
+                            key={index}
+                            onClick={() => navigate(item.link)}
+                        >
+                            <div className="icon">
+                                {isActive ? item.primaryIcon : item.icon}
+                            </div>
+                            <div className="title">{item.title}</div>
+                        </li>
+                    );
+                })}
             </ul>
-        </div>
+        </aside>
     );
 };
-

@@ -1,105 +1,119 @@
 .sidebar {
-    height: 100%;
-    width: 12%;
+    height: 100vh;
+    width: 260px; /* Zamiast 12% używamy sztywnej, ładnej szerokości */
     background-color: var(--primary);
-    overflow: hidden;
     display: flex;
     flex-direction: column;
+    box-shadow: 4px 0 15px rgba(0, 0, 0, 0.05); /* Delikatny cień oddzielający od reszty strony */
+    padding: 24px 16px;
+    box-sizing: border-box;
+    position: sticky;
+    top: 0;
+}
+
+.logoContainer {
+    margin-bottom: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .sidebarList {
     width: 100%;
     padding: 0;
-}
-
-.sidebarList .row{
-    margin-top: 5%;
-    list-style-type: none;
+    margin: 0;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    gap: 12px; /* Stały odstęp między przyciskami */
+}
+
+/* Pojedynczy wiersz */
+.sidebarItem {
+    list-style-type: none;
+    display: flex;
+    align-items: center; /* Wyrównanie ikony i tekstu w jednej linii */
+    padding: 12px 20px;
     cursor: pointer;
-    padding: 10px 0;
-    position: relative;
+    border-radius: 12px; /* Nowocześniejsze, mniejsze zaokrąglenie */
+    transition: all 0.3s ease; /* Płynne przejścia hovera */
+    color: rgba(255, 255, 255, 0.7); /* Lekko przygaszony tekst dla nieaktywnych */
 }
 
-.sidebarList .row:hover {
-    position: relative;
+/* Efekt najechania myszką */
+.sidebarItem:hover {
     background-color: var(--secondary);
-    border-radius: 70px;
-    margin: 5%;
-}
-.sidebarList .row:hover #icon,
-.sidebarList .row:hover #title {
-    z-index: 1;
-    font-weight: bold;
-}
-
-.sidebarList .row.active {
-    position: relative;
-    background-color: var(--background);
-    border-radius: 70px;
-    margin: 5%;
-}
-.sidebarList .row.active #icon,
-.sidebarList .row.active #title {
-    z-index: 1;
-    color: var(--primary);
-    font-weight: bold;
-}
-.row #icon {
-    display: grid;
-    place-items: center;
-}
-
-.row #title {
     color: white;
-    font-family: var(--main-font), sans-serif;
-    display: grid;
-    place-items: center;
-    text-align: center;
-    padding: 0 8%;
+    transform: translateX(5px); /* Delikatne przesunięcie w prawo - fajny efekt! */
 }
 
+/* Aktywny element */
+.sidebarItem.active {
+    background-color: var(--background);
+    color: var(--primary);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Lekki cień wyciągający aktywny przycisk */
+}
+
+.sidebarItem .icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 16px; /* Odstęp między ikoną a tekstem */
+    font-size: 1.3rem;
+}
+
+.sidebarItem .title {
+    font-family: var(--main-font), sans-serif;
+    font-weight: 500;
+    font-size: 1rem;
+    white-space: nowrap; /* Zapobiega łamaniu tekstu na małych ekranach */
+}
+
+.sidebarItem.active .title {
+    font-weight: 700;
+}
+
+/* Wersja Mobilna (Pasek na dole jak w aplikacjach natywnych) */
 @media screen and (max-width: 768px) {
     .sidebar {
         width: 100%;
-        height: 12%;
-        background-color: var(--primary);
+        height: auto; /* Dostosowuje się do zawartości */
         position: fixed;
         bottom: 0;
         left: 0;
         top: auto;
-        flex-direction: row;
-        justify-content: space-around;
-        align-items: center;
-        padding: 0;
-        box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2);
+        padding: 10px 15px;
+        z-index: 1000;
+        box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .logoContainer {
+        display: none; /* Logo zazwyczaj ukrywamy na dolnym pasku na telefonie */
     }
 
     .sidebarList {
-        display: flex;
         flex-direction: row;
-        width: 100%;
-        justify-content: space-around;
-        align-items: center;
-        padding: 0;
-        margin: 0;
+        justify-content: space-between;
+        gap: 0;
     }
 
-    .sidebarList .row {
-        flex-direction: column;
+    .sidebarItem {
+        flex-direction: column; /* Ikona nad tekstem na małych ekranach */
+        padding: 8px 12px;
         margin: 0;
-        padding: 8px;
+        flex: 1; /* Równomierne rozłożenie przycisków */
     }
 
-    .row #icon {
+    .sidebarItem:hover {
+        transform: none; /* Na telefonach wyłączamy animację przesuwania */
+    }
+
+    .sidebarItem .icon {
+        margin-right: 0;
+        margin-bottom: 4px; /* Przenosimy odstęp pod ikonę */
         font-size: 1.5rem;
     }
 
-    .sidebarList .row:hover #icon,
-    .sidebarList .row:hover #title {
-        z-index: 1;
+    .sidebarItem .title {
+        font-size: 0.75rem; /* Zmniejszamy tekst, żeby się zmieścił */
     }
-
 }
