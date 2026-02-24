@@ -114,4 +114,4 @@ databases:
   - name: servicetrack-db
     plan: free
     databaseName: servicetrack
-    user: postgres
+    user: servicetrackuser
