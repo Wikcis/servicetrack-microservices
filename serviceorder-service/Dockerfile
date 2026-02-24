@@ -4,7 +4,7 @@ WORKDIR /app
 COPY . .
 RUN mvn clean install -DskipTests -pl serviceorder-service/serviceorder-web -am
 
-FROM openjdk:17-jdk-alpine
+FROM eclipse-temurin:17-jre-alpine
 
 RUN addgroup -S servicetrack \
     && adduser -S servicetrack -G servicetrack
