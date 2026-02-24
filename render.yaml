@@ -1,0 +1,98 @@
+services:
+  - type: web
+    name: frontend
+    env: docker
+    rootDir: frontend
+    plan: starter
+
+  - type: web
+    name: client-service
+    env: docker
+    rootDir: client-service
+    plan: starter
+    envVars:
+      - key: SPRING_PROFILES_ACTIVE
+        value: prod
+      - key: SPRING_DATASOURCE_URL
+        fromDatabase:
+          name: servicetrack-db
+          property: connectionString
+      - key: SPRING_DATASOURCE_USERNAME
+        fromDatabase:
+          name: servicetrack-db
+          property: user
+      - key: SPRING_DATASOURCE_PASSWORD
+        fromDatabase:
+          name: servicetrack-db
+          property: password
+
+  - type: web
+    name: technician-service
+    env: docker
+    rootDir: technician-service
+    plan: starter
+    envVars:
+      - key: SPRING_PROFILES_ACTIVE
+        value: prod
+      - key: SPRING_DATASOURCE_URL
+        fromDatabase:
+          name: servicetrack-db
+          property: connectionString
+      - key: SPRING_DATASOURCE_USERNAME
+        fromDatabase:
+          name: servicetrack-db
+          property: user
+      - key: SPRING_DATASOURCE_PASSWORD
+        fromDatabase:
+          name: servicetrack-db
+          property: password
+
+  - type: web
+    name: serviceorder-service
+    env: docker
+    rootDir: serviceorder-service
+    plan: starter
+    envVars:
+      - key: SPRING_PROFILES_ACTIVE
+        value: prod
+      - key: SPRING_DATASOURCE_URL
+        fromDatabase:
+          name: servicetrack-db
+          property: connectionString
+      - key: SPRING_DATASOURCE_USERNAME
+        fromDatabase:
+          name: servicetrack-db
+          property: user
+      - key: SPRING_DATASOURCE_PASSWORD
+        fromDatabase:
+          name: servicetrack-db
+          property: password
+
+  - type: web
+    name: user-service
+    env: docker
+    rootDir: user-service
+    plan: starter
+    envVars:
+      - key: SPRING_PROFILES_ACTIVE
+        value: prod
+      - key: SPRING_DATASOURCE_URL
+        fromDatabase:
+          name: servicetrack-db
+          property: connectionString
+      - key: SPRING_DATASOURCE_USERNAME
+        fromDatabase:
+          name: servicetrack-db
+          property: user
+      - key: SPRING_DATASOURCE_PASSWORD
+        fromDatabase:
+          name: servicetrack-db
+          property: password
+      - key: JWT_SECRET_KEY
+        sync: false
+
+databases:
+  - name: servicetrack-db
+    plan: starter
+    databaseName: servicetrack
+    user: postgres
