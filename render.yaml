@@ -1,5 +1,4 @@
 services:
-  # 1. User Service
   - type: web
     name: user-service
     env: docker
@@ -9,9 +8,9 @@ services:
       - key: SPRING_PROFILES_ACTIVE
         value: docker
       - key: FRONTEND_URL
-        sync: false # Ustawisz to w panelu po zdeployowaniu Netlify!
+        sync: false
       - key: JWT_SECRET_KEY
-        sync: false # Klucz wpiszesz ręcznie w panelu ze względów bezpieczeństwa
+        sync: false
       - key: DB_HOST
         fromDatabase:
           name: servicetrack-db
@@ -29,7 +28,6 @@ services:
           name: servicetrack-db
           property: password
 
-  # 2. Client Service
   - type: web
     name: client-service
     env: docker
@@ -57,7 +55,6 @@ services:
           name: servicetrack-db
           property: password
 
-  # 3. Technician Service
   - type: web
     name: technician-service
     env: docker
@@ -85,7 +82,7 @@ services:
           name: servicetrack-db
           property: password
 
-  # 4. Service Order Service
+
   - type: web
     name: serviceorder-service
     env: docker
