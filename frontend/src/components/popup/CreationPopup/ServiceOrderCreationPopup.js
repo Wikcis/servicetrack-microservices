@@ -27,9 +27,7 @@ export const ServiceOrderCreationPopup = ({triggerButton, setTriggerButton}) => 
     const [emptyWarningTrigger, setEmptyWarningTrigger] = React.useState(false);
     const [formattedClients, setFormattedClients] = React.useState([])
     const [formattedTechnicians, setFormattedTechnicians] = React.useState([])
-
     const [validate, setValidate] = React.useState(false);
-
 
     const clearValues = () => {
         setName("");
@@ -39,16 +37,17 @@ export const ServiceOrderCreationPopup = ({triggerButton, setTriggerButton}) => 
         setType("");
         setFormat("");
         setDescription("");
+        setComment("");
+        setDuration("");
     };
 
     const createRequestBody = () => {
-
         if (name === "" || status === "" || (user.role !== "USER" ? technicianName === "" : false) || date === "" || type === "" || format === "") {
             setEmptyWarningTrigger(true);
             return null;
         }
 
-        const obj = JSON.stringify({
+        return JSON.stringify({
             id: window.crypto.randomUUID(),
             technicianId: user.role === "USER" ? user.id : technicianName,
             clientId: name,
@@ -60,29 +59,23 @@ export const ServiceOrderCreationPopup = ({triggerButton, setTriggerButton}) => 
             serviceDuration: duration,
             comment: comment
         });
-
-        console.log("Service Order posting:" + obj);
-
-        return obj
     }
 
     const formatClients = React.useCallback(() => {
-        const formattedClients = filteredClients.map(client => ({
+        const clients = filteredClients.map(client => ({
             Header: client.name,
             accessor: client.id,
         }));
-        setFormattedClients(formattedClients);
+        setFormattedClients(clients);
     }, [filteredClients]);
 
-
     const formatTechnicians = React.useCallback(() => {
-        const formattedTechnicians = filteredTechnicians.map(technician => ({
+        const technicians = filteredTechnicians.map(technician => ({
             Header: technician.firstName + " " + technician.lastName,
             accessor: technician.id
         }));
-        setFormattedTechnicians(formattedTechnicians);
+        setFormattedTechnicians(technicians);
     }, [filteredTechnicians]);
-
 
     useEffect(() => {
         if (triggerButton) {
@@ -94,167 +87,82 @@ export const ServiceOrderCreationPopup = ({triggerButton, setTriggerButton}) => 
         }
     }, [formatClients, formatTechnicians, triggerButton]);
 
-    console.log("status: ", status)
-
     return (
         <div>
-            <Popup
-                open={triggerButton}
-                modal
-                nested
-                closeOnDocumentClick={false}
-                onClose={() => {
-                    clearValues();
-                    refreshData();
-                }}
-            >
+            <Popup open={triggerButton} modal nested closeOnDocumentClick={false} onClose={() => { clearValues(); refreshData(); }}>
                 <div className="popupOverlay">
                     <div className="popUpContainer">
-
                         <div className="popupHeader">
                             <h3 className="popupTitle">Add New Service Order</h3>
                             <IconXButton className="closeButton" setTriggerButton={setTriggerButton}/>
                         </div>
 
                         <div className="gridContainer">
-
                             <div className="rowContainer">
                                 <div className={user.role === "USER" ? "singleItem" : "gridItem"}>
-                                    <span className="labelField">Enter client name</span>
-                                    <DropDownList
-                                        columns={formattedClients}
-                                        onSelectColumn={setName}
-                                        title={Titles.clientNameTitle}
-                                        className={"popUpDropDownListContainer"}
-                                        required={true}
-                                        validate={validate}
-                                    />
+                                    <span className="labelField">Client</span>
+                                    <DropDownList columns={formattedClients} onSelectColumn={setName} title={Titles.clientNameTitle} className="fullWidthInput" required={true} validate={validate} />
                                 </div>
-
-                                {user.role !== "USER" ?<div className="gridItem">
-                                    <span className="labelField">Enter Technician name</span>
-                                    <DropDownList
-                                        columns={formattedTechnicians}
-                                        onSelectColumn={setTechnicianName}
-                                        title={Titles.technicianNameTitle}
-                                        className={"popUpDropDownListContainer"}
-                                        required={true}
-                                        validate={validate}
-                                    />
-                                </div> : null}
-
+                                {user.role !== "USER" && (
+                                    <div className="gridItem">
+                                        <span className="labelField">Technician</span>
+                                        <DropDownList columns={formattedTechnicians} onSelectColumn={setTechnicianName} title={Titles.technicianNameTitle} className="fullWidthInput" required={true} validate={validate} />
+                                    </div>
+                                )}
                             </div>
-
 
                             <div className="rowContainer">
                                 <div className="gridItem">
-                                    <span className="labelField">Select Status</span>
-                                    <DropDownList
-                                        columns={Status}
-                                        onSelectColumn={setStatus}
-                                        title={Titles.serviceStatusTitle}
-                                        className={"popUpDropDownListContainer"}
-                                        value={status}
-                                        required={true}
-                                        validate={validate}
-                                    />
+                                    <span className="labelField">Status</span>
+                                    <DropDownList columns={Status} onSelectColumn={setStatus} title={Titles.serviceStatusTitle} className="fullWidthInput" value={status} required={true} validate={validate} />
                                 </div>
-
                                 <div className="gridItem">
-                                    <span className="labelField">Pick Date of service</span>
-                                    <CustomDatepicker
-                                        className="popUpDatepicker"
-                                        title="Date of service"
-                                        onSelectedDate={setDate}
-                                        minDate={status === "DONE" ? dayjs("2020-12-31") : dayjs()}
-                                        maxDate={status === "DONE" ? dayjs() : dayjs("2035-12-31")}
-                                        value={dayjs()}
-                                    />
+                                    <span className="labelField">Date of service</span>
+                                    <CustomDatepicker className="fullWidthInput" title="Date of service" onSelectedDate={setDate} minDate={status === "DONE" ? dayjs("2020-12-31") : dayjs()} maxDate={status === "DONE" ? dayjs() : dayjs("2035-12-31")} value={dayjs()} />
                                 </div>
                             </div>
 
                             <div className="rowContainer">
                                 <div className="gridItem">
-                                    <span className="labelField">Select service type</span>
-                                    <DropDownList
-                                        columns={Type}
-                                        onSelectColumn={setType}
-                                        title={Titles.serviceTypeTitle}
-                                        className={"popUpDropDownListContainer"}
-                                        required={true}
-                                        validate={validate}
-                                    />
+                                    <span className="labelField">Service type</span>
+                                    <DropDownList columns={Type} onSelectColumn={setType} title={Titles.serviceTypeTitle} className="fullWidthInput" required={true} validate={validate} />
                                 </div>
-
                                 <div className="gridItem">
-                                    <span className="labelField">Select service format</span>
-                                    <DropDownList
-                                        columns={Format}
-                                        onSelectColumn={setFormat}
-                                        title={Titles.serviceFormatTitle}
-                                        className={"popUpDropDownListContainer"}
-                                        required={true}
-                                        validate={validate}
-                                    />
+                                    <span className="labelField">Service format</span>
+                                    <DropDownList columns={Format} onSelectColumn={setFormat} title={Titles.serviceFormatTitle} className="fullWidthInput" required={true} validate={validate} />
                                 </div>
                             </div>
-
 
                             <div className="gridItem">
-                                <span className="labelField">Enter description of the service</span>
-                                <span className="description">
-                                    <CustomTextField
-                                        label={"Description"}
-                                        setText={setDescription}
-                                        maxLength={512}
-                                    />
+                                <span className="labelField">Description</span>
+                                <span className="textField">
+                                    <CustomTextField label={"Description"} setText={setDescription} maxLength={512} />
                                 </span>
                             </div>
 
-
                             <div className="rowContainer">
                                 <div className="gridItem">
-                                    <span className="labelField">Enter comment of the service</span>
+                                    <span className="labelField">Comment</span>
                                     <span className="textField">
-                                        <CustomTextField
-                                            label={"Comment"}
-                                            setText={setComment}
-                                            maxLength={512}
-                                        />
+                                        <CustomTextField label={"Comment"} setText={setComment} maxLength={512} />
                                     </span>
                                 </div>
-
                                 <div className="gridItem">
-                                    <span className="labelField">Select Service Duration</span>
-                                    <CustomTimePicker
-                                        onSelectedTime={setDuration}
-                                        title={Titles.serviceDurationTitle}
-                                        className={"popUpTimepicker"}
-                                    />
+                                    <span className="labelField">Duration</span>
+                                    <CustomTimePicker onSelectedTime={setDuration} title={Titles.serviceDurationTitle} className="fullWidthInput" />
                                 </div>
                             </div>
-
                         </div>
 
                         <div className="buttonContainer">
-                            <CustomButton
-                                className="saveButton"
-                                setTriggerButton={setTriggerButton}
-                                requestBody={createRequestBody}
-                                validate={setValidate}
-                                type={Titles.serviceOrdersPageTitle}
-                            >
-                                Save
+                            <CustomButton className="saveButton" setTriggerButton={setTriggerButton} requestBody={createRequestBody} validate={setValidate} type={Titles.serviceOrdersPageTitle}>
+                                Save Order
                             </CustomButton>
                         </div>
                     </div>
                 </div>
 
-                <EmptyFieldsPopup
-                    triggerButton={emptyWarningTrigger}
-                    setTriggerButton={setEmptyWarningTrigger}
-                />
-
+                <EmptyFieldsPopup triggerButton={emptyWarningTrigger} setTriggerButton={setEmptyWarningTrigger} />
             </Popup>
         </div>
     );

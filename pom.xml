@@ -8,6 +8,7 @@
 		<module>serviceorder-service</module>
 		<module>technician-service</module>
 		<module>client-service</module>
+		<module>invoice-service</module>
 		<module>common</module>
         <module>user-service</module>
 	</modules>

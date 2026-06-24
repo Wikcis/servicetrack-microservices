@@ -1,8 +1,8 @@
 import Popup from "reactjs-popup";
 import {CustomTextField} from "../../textField/CustomTextField";
 import {CustomButton} from "../../button/CustomButton";
-import {IconXButton} from "../../iconButton/IconXButton";
 import React, {useContext} from "react";
+import {IconXButton} from "../../iconButton/IconXButton";
 import {isNumeric, Titles} from "../../../utils";
 import {EmptyFieldsPopup} from "../errorPopup/EmptyFieldsPopup";
 import {AppContext} from "../../../context";
@@ -30,7 +30,6 @@ export const ClientEditionPopup = ({triggerButton, setTriggerButton, row}) => {
     }, [row]);
 
     const createRequestBody = () => {
-
         if(!isNumeric(phoneNumber)) {
             setWrongValuesTrigger(true);
             return null;
@@ -51,95 +50,47 @@ export const ClientEditionPopup = ({triggerButton, setTriggerButton, row}) => {
 
     return (
         <div>
-            <Popup
-                open={triggerButton}
-                modal
-                nested
-                closeOnDocumentClick={false}
-                onClose={() => {
-                    refreshData();
-                }}
-            >
+            <Popup open={triggerButton} modal nested closeOnDocumentClick={false} onClose={() => { refreshData(); }}>
                 <div className="popupOverlay">
                     <div className="singleColumnPopUpContainer">
-
                         <div className="popupHeader">
                             <h3 className="popupTitle">Edit Client</h3>
                             <IconXButton className="closeButton" setTriggerButton={setTriggerButton}/>
                         </div>
 
                         <div className="gridContainer">
-
                             <div className="gridItem">
-                                <span className="labelField">Enter client name</span>
+                                <span className="labelField">Client name</span>
                                 <span className="textField">
-                                    <CustomTextField
-                                        label={"Name"}
-                                        setText={setName}
-                                        maxLength={32}
-                                        value={name}
-                                        required={true}
-                                        validate={validate}
-                                    />
+                                    <CustomTextField label={"Name"} setText={setName} maxLength={32} value={name} required={true} validate={validate} />
                                 </span>
                             </div>
 
                             <div className="gridItem">
-                                <span className="labelField">Enter Email</span>
+                                <span className="labelField">Email address</span>
                                 <span className="textField">
-                                    <CustomTextField
-                                        label={"Email"}
-                                        setText={setEmail}
-                                        maxLength={32}
-                                        email={true}
-                                        disabled={true}
-                                        value={email}
-                                    />
+                                    <CustomTextField label={"Email"} setText={setEmail} maxLength={32} email={true} disabled={true} value={email} />
                                 </span>
                             </div>
 
                             <div className="gridItem">
-                                <span className="labelField">Enter phone number</span>
+                                <span className="labelField">Phone number</span>
                                 <span className="textField">
-                                    <CustomTextField
-                                        label={"Phone number"}
-                                        setText={setPhoneNumber}
-                                        maxLength={9}
-                                        minLength={9}
-                                        numeric={true}
-                                        value={phoneNumber}
-                                        required={true}
-                                        validate={validate}
-                                    />
+                                    <CustomTextField label={"Phone number"} setText={setPhoneNumber} maxLength={9} minLength={9} numeric={true} value={phoneNumber} required={true} validate={validate} />
                                 </span>
-
                             </div>
                         </div>
 
                         <div className="buttonContainer">
-                            <CustomButton
-                                className="saveButton"
-                                setTriggerButton={setTriggerButton}
-                                requestBody={createRequestBody}
-                                type={Titles.clientsPageTitle}
-                                validate={setValidate}
-                            >
-                                Update
+                            <CustomButton className="saveButton" setTriggerButton={setTriggerButton} requestBody={createRequestBody} type={Titles.clientsPageTitle} validate={setValidate}>
+                                Update Client
                             </CustomButton>
                         </div>
-
                     </div>
                 </div>
 
-                <EmptyFieldsPopup
-                    triggerButton={emptyWarningTrigger}
-                    setTriggerButton={setEmptyWarningTrigger}
-                />
-
-                <WrongValuePopup
-                    triggerButton={wrongValuesTrigger}
-                    setTriggerButton={setWrongValuesTrigger}
-                />
+                <EmptyFieldsPopup triggerButton={emptyWarningTrigger} setTriggerButton={setEmptyWarningTrigger} />
+                <WrongValuePopup triggerButton={wrongValuesTrigger} setTriggerButton={setWrongValuesTrigger} />
             </Popup>
         </div>
     );

@@ -10,32 +10,40 @@ export const UserBar = ({title}) => {
 
     useEffect(() => {
         fetchUser();
-    }, []);
+    }, [fetchUser]);
 
     return (
-        <div className="userBarContainer">
-            <div className="userWithIconContainer">
-                <div className="userInfoContainer">
-                    <span>
-                        {user?.role === "USER" ? "Technician: " : null}
-                        <span className="userNameContainer">
-                            {user.firstName} {user.lastName}
-                        </span>
-                    </span>
-                    {user?.role === "USER" ?
-                        <span>phone number:
-                            <span className="phoneNumber">
-                                {user.phoneNumber}
-                            </span>
-                        </span> : null}
-                </div>
-                <ProfilePageIcon
-                    className="profileIcon"
-                    onClick={() => navigate(REST_API_URLS.ONLY_PROFILE_URL)}
-                />
+        <header className="userBarContainer">
+            <div className="titleContainer">
+                <Title>{title}</Title>
             </div>
-            <Title>{title}</Title>
-        </div>
-    )
-};
 
+            {user && (
+                <div className="userWithIconContainer">
+                    <div className="userInfoContainer">
+                        <span className="userRoleText">
+                            {user.role === "USER" && "Technician: "}
+                            <span className="userNameContainer">
+                                {user.firstName} {user.lastName}
+                            </span>
+                        </span>
+
+                        {user.role === "USER" && user.phoneNumber && (
+                            <span className="userPhoneText">
+                                phone number:
+                                <span className="phoneNumber">{user.phoneNumber}</span>
+                            </span>
+                        )}
+                    </div>
+
+                    <div
+                        className="profileIconWrapper"
+                        onClick={() => navigate(REST_API_URLS.ONLY_PROFILE_URL)}
+                    >
+                        <ProfilePageIcon className="profileIcon" />
+                    </div>
+                </div>
+            )}
+        </header>
+    );
+};

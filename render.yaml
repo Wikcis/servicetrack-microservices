@@ -110,6 +110,33 @@ services:
           name: servicetrack-db
           property: password
 
+  - type: web
+    name: invoice-service
+    env: docker
+    dockerfilePath: ./invoice-service/Dockerfile
+    plan: free
+    envVars:
+      - key: SPRING_PROFILES_ACTIVE
+        value: docker
+      - key: FRONTEND_URL
+        sync: false
+      - key: DB_HOST
+        fromDatabase:
+          name: servicetrack-db
+          property: host
+      - key: DB_NAME
+        fromDatabase:
+          name: servicetrack-db
+          property: database
+      - key: DB_USER
+        fromDatabase:
+          name: servicetrack-db
+          property: user
+      - key: DB_PASS
+        fromDatabase:
+          name: servicetrack-db
+          property: password
+
 databases:
   - name: servicetrack-db
     plan: free

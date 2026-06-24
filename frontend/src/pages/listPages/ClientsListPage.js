@@ -30,7 +30,7 @@ export const ClientsListPage = () => {
 
     useEffect(() => {
         fetchData();
-    }, []);
+    }, [fetchData]);
 
     return (
         <div className="app">
@@ -38,19 +38,24 @@ export const ClientsListPage = () => {
             <div className="mainContainer">
                 <UserBar title={Titles.clientsPageTitle}/>
                 <div className="aboveTableContainer">
-                    <DropDownList columns={columns.filter(col => col.Header !== "")} onSelectColumn={handleSelection}
-                                  title={Titles.sortByTitle} className={"dropDownListContainer"}/>
-                    <Searchbar onSearch={(input) => searchClients(input)}/>
+                    <div className="actionGroup">
+                        <DropDownList
+                            columns={columns.filter(col => col.Header !== "")}
+                            onSelectColumn={handleSelection}
+                            title={Titles.sortByTitle}
+                            className="dropDownListContainer"
+                        />
+                        <Searchbar onSearch={(input) => searchClients(input)}/>
+                    </div>
                     <CustomButton className="addButton" icon={<PlusIcon/>} setTriggerButton={setTriggerButton}>
                         Add client
                     </CustomButton>
                 </div>
                 {!loading ? (<Table data={filteredClients || []} type={Titles.clientsPageTitle}/>) : null}
             </div>
-            <ClientCreationPopup triggerButton={triggerButton} setTriggerButton={setTriggerButton}/>
 
+            <ClientCreationPopup triggerButton={triggerButton} setTriggerButton={setTriggerButton}/>
             <ClientEditionPopup triggerButton={editionTrigger} setTriggerButton={setEditionTrigger} row={selectedRow}/>
         </div>
     );
 };
-

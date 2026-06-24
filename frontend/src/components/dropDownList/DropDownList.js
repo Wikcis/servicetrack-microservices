@@ -22,7 +22,7 @@ export const DropDownList = ({
         if (!validValues.includes(selectedColumn)) {
             setSelectedColumn("");
         }
-    }, [columns, selectedColumn]);
+    }, [columns, selectedColumn, validValues]);
 
     const validateSelection = (value) => {
         if (required) {
@@ -45,19 +45,20 @@ export const DropDownList = ({
         if (validate) {
             validateSelection(selectedColumn);
         }
-    }, [validate]);
+    }, [validate, selectedColumn]);
 
     return (
         <ThemeProvider theme={Theme}>
-            <FormControl className={className} error={error} required={required}>
-                <InputLabel id="demo-simple-select-label">{title}</InputLabel>
+            <FormControl className={className} error={error} required={required} variant="outlined" size="small">
+                <InputLabel id={`dropdown-${title}-label`}>{title}</InputLabel>
                 <Select
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
+                    labelId={`dropdown-${title}-label`}
+                    id={`dropdown-${title}`}
                     value={selectedColumn || ""}
                     label={title}
                     onChange={handleChange}
                     onBlur={handleBlur}
+                    sx={{ borderRadius: '8px', backgroundColor: '#fff' }}
                 >
                     {columns.map((item, index) => (
                         item !== "" && (

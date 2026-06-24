@@ -1,36 +1,99 @@
 .userBarContainer {
-    height: 25%;
-    width: 95%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 24px 40px;
+    box-sizing: border-box;
     font-family: var(--main-font), sans-serif;
-    position: relative;
+    background-color: var(--background);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.titleContainer {
+    flex: 1;
+}
+
+.userWithIconContainer {
+    display: flex;
+    align-items: center;
+    gap: 20px;
 }
 
 .userInfoContainer {
     display: flex;
     flex-direction: column;
-    align-items: end;
+    align-items: flex-end;
+    justify-content: center;
+}
+
+.userRoleText {
+    font-size: 0.9rem;
+    color: gray;
 }
 
 .userNameContainer {
-    font-weight: bold;
-    font-size: 20px;
+    font-weight: 700;
+    font-size: 1.15rem;
+    color: var(--primary);
+    margin-left: 6px;
+}
+
+.userPhoneText {
+    font-size: 0.85rem;
+    color: gray;
+    margin-top: 4px;
 }
 
 .phoneNumber {
-    font-weight: bold;
+    font-weight: 600;
+    color: var(--primary);
+    margin-left: 6px;
 }
 
-.userWithIconContainer {
+.profileIconWrapper {
     display: flex;
-    flex-direction: row;
-    right: 0;
-    position: absolute;
+    align-items: center;
+    justify-content: center;
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background-color: var(--secondary);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.profileIconWrapper:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+    background-color: var(--primary);
+}
+
+.profileIconWrapper:hover .profileIcon {
+    fill: white;
+    color: white;
 }
 
 .profileIcon {
-    width: 50px;
-    height: 50px;
-    cursor: pointer;
-    min-width: 10px;
-    min-height: 10px;
+    width: 28px;
+    height: 28px;
+    transition: all 0.3s ease;
+}
+
+@media screen and (max-width: 768px) {
+    .userBarContainer {
+        padding: 16px 20px;
+        flex-direction: column-reverse;
+        align-items: flex-start;
+        gap: 20px;
+    }
+
+    .userWithIconContainer {
+        width: 100%;
+        justify-content: flex-end;
+    }
+
+    .userInfoContainer {
+        align-items: flex-end;
+    }
 }
