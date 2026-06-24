@@ -111,6 +111,7 @@ services:
       - serviceorder-service
       - technician-service
       - user-service
+      - invoice-service
     networks:
       - servicetrack-network
 

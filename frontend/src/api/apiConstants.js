@@ -3,6 +3,7 @@ const CLIENT_API_PORT = "8081"
 const TECHNICIAN_API_PORT = "8082"
 const SERVICEORDER_API_PORT = "8083"
 const USER_API_PORT = "8084"
+const INVOICE_API_PORT = "8085"
 
 export const REST_API_URLS = {
     BASE_URL,
