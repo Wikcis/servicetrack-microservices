@@ -1,0 +1,30 @@
+databaseChangeLog:
+  - changeSet:
+      id: 00_init_invoice_schema
+      author: Wikcis
+      changes:
+        - createTable:
+            tableName: invoice_invoice
+            columns:
+              - column:
+                  name: id
+                  type: uuid
+                  autoIncrement: false
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: service_order_id
+                  type: uuid
+                  constraints:
+                    nullable: false
+              - column:
+                  name: amount
+                  type: decimal(10,2)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: issue_date
+                  type: date
+                  constraints:
+                    nullable: false
